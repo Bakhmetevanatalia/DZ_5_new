@@ -20,7 +20,6 @@ public class FirstAutoTest {
     private final String login = "wasej93407@dni8.com";
     private final String pas = "Natalia12345!";
     private WebDriver driver;
-    ChromeOptions options = new ChromeOptions();
 
 
 
@@ -58,16 +57,15 @@ public class FirstAutoTest {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[name='country'] ~ div")));
         driver.findElement(By.cssSelector("[name='country'] ~ div")).click();
         driver.findElement(By.xpath("//ancestor::*[contains(@data-ajax-slave, 'by_country')]//button[@title='Россия']")).click();
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".js-lk-cv-dependent-slave-city")));
-        driver.findElement(By.cssSelector(".js-lk-cv-dependent-slave-city")).click();
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("javascript:window.scrollBy(200,300)");
-        driver.findElement(By.cssSelector("input[name='city']+div")).click();
-        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.lk-cv-block__select-option[title='Москва']")));
-        driver.findElement(By.cssSelector("button.lk-cv-block__select-option[title='Москва']")).click();
         wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input[name=english_level]+div")));
         driver.findElement(By.cssSelector("input[name=english_level]+div")).click();
         driver.findElement(By.cssSelector("button.lk-cv-block__select-option[title='Средний (Intermediate)']")).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input[name='city']+div")));
+        actions.moveToElement(driver.findElement(By.cssSelector("input[name='city']+div"))).click().perform();
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[title=Москва]")));
+        driver.findElement(By.cssSelector("button[title=Москва]")).click();
         driver.findElement(By.cssSelector("input[name*='contact-0']~.lk-cv-block__input")).click();
         driver.findElement(By.xpath("//*[@id='id_contact-0-value']")).clear();
         driver.findElement(By.xpath("//ancestor::*[contains(@data-num, '0')]//button[6]")).click();
